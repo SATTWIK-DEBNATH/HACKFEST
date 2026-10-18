@@ -70,18 +70,21 @@ Write-Host "  Resilience UI:    Press Alt+R in the browser or click RESILIENCE" 
 Write-Host "  Shutdown:         Press Ctrl+C to terminate the server" -ForegroundColor DarkGray
 Write-Host "---------------------------------------------------------------------`n" -ForegroundColor DarkGray
 
+if (-not $NoBrowser) {
+    [System.Threading.Tasks.Task]::Run([Action]{
+        Start-Sleep -Seconds 2
+        try {
+            Start-Process "http://localhost:$Port"
+        } catch {
+            # Silently fallback to Vite's own opener
+        }
+    }) | Out-Null
+}
+
 if ($Production) {
     Write-Host "[INFO] Building and launching production bundle locally..." -ForegroundColor Cyan
     & npm run build
-    if ($NoBrowser) {
-        & npx vite preview --port $Port
-    } else {
-        & npx vite preview --port $Port --open
-    }
+    & npx vite preview --port $Port
 } else {
-    if ($NoBrowser) {
-        & npx vite --port $Port
-    } else {
-        & npx vite --port $Port --open
-    }
+    & npm run dev -- --host localhost --port $Port
 }
