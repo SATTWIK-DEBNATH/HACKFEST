@@ -1,28 +1,173 @@
-# Research Analysis Directorate (RAD) — Supply Chain Resilience Command Center
+<div align="center">
 
-An industry-grade, explainable supply chain resilience command center built on top of the Research Analysis Directorate (RAD) 3D geospatial intelligence console.
+# Research Analysis Directorate (RAD)
+### Supply Chain Resilience Command Center
 
-Turn real-world disruptions visible on the globe into evidence-backed operational decisions:
-$$\text{Hazard} \longrightarrow \text{Exposed Facilities / Routes / Shipments} \longrightarrow \text{Product \& Inventory Impact} \longrightarrow \text{Recovery Scenarios} \longrightarrow \text{Approved Action} \longrightarrow \text{Measured Outcome}$$
+**An explainable, multi-tier supply chain digital twin and decision-support command center built on the RAD 3D geospatial intelligence console.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D24.14.0-339933?style=for-the-badge&logo=node.js&logoColor=white)](package.json)
+[![CesiumJS](https://img.shields.io/badge/CesiumJS-1.124.0-0080FF?style=for-the-badge&logo=cesium&logoColor=white)](https://cesium.com/)
+[![Uber H3](https://img.shields.io/badge/Spatial%20Grid-Uber%20H3%20v4.5-FF5A5F?style=for-the-badge&logo=uber&logoColor=white)](https://h3geo.org/)
+[![GS1 EPCIS](https://img.shields.io/badge/Standard-GS1%20EPCIS%202.0-F26322?style=for-the-badge&logo=gs1&logoColor=white)](https://ref.gs1.org/standards/epcis/)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=vite&logoColor=white)](package.json)
+[![Unit Tests](https://img.shields.io/badge/Tests-27%2F27%20Passed-success?style=for-the-badge&logo=jest&logoColor=white)](src/supplyChain/)
+
+[Explore Architecture](docs/SUPPLY_CHAIN_ARCHITECTURE.md) • [Data Dictionary](docs/SUPPLY_CHAIN_DATA_DICTIONARY.md) • [Demo Script](docs/SUPPLY_CHAIN_DEMO_SCRIPT.md) • [Localhost Setup](docs/RUN_LOCALLY.md)
+
+</div>
 
 ---
 
-## 🌐 Overview & Core Capabilities
+## 🎯 Executive Overview
 
-The RAD Resilience Command Center equips supply chain directors, logistics controllers, and crisis response teams with an interactive 3D digital twin of their end-to-end supply chain network. When physical hazards occur, RAD calculates exact spatial exposure, traces multi-tier dependency propagation, projects inventory stockouts, simulates actionable recovery alternatives, and records approved decisions in an immutable audit ledger.
+The **RAD Supply Chain Resilience Command Center** bridges real-world disruptions visible on the 3D globe directly into evidence-backed operational decisions.
 
-### Key Modules:
-- **Supply Chain Digital Twin**: Normalized graph model representing Facilities (manufacturing, warehouses, suppliers, ports), Products, Inventory Positions, Consignments/Shipments, and Intermodal Route Legs.
-- **GS1 EPCIS 2.0 Traceability**: Internal event engine standardizing WHAT, WHEN, WHERE, WHY, HOW, and PROVENANCE concepts across logistics nodes.
-- **Exposure & Impact Engine**: Pure, deterministic geofencing utilizing Uber H3 discrete global grid indexing ($res \text{ } 4\text{--}7$) and transparent component scoring:
-  $$\text{Impact} = \text{Hazard Severity} \times \text{Asset Exposure} \times \text{Business Criticality} \times \text{Recovery Difficulty} \times \text{Data Confidence}$$
-- **Recovery Scenario Engine**: Heuristic decision-support solver evaluating four actionable archetypes:
-  1. *Reroute Shipment* (alternate maritime or intermodal corridor)
-  2. *Transfer Inventory* (lateral stock transfer from surplus warehouse)
-  3. *Split Supply Order* (dual-sourcing across qualified Tier-2 alternate suppliers)
-  4. *Expedite Freight* (emergency air charter conversion)
-- **Action Ledger & Audit Trail**: Immutable state tracking (`pending` $\to$ `approved` $\to$ `executing` $\to$ `completed` / `rejected`) with assigned operational owners and cryptographic evidence drawers.
-- **Enterprise Integrations**: Interface boundaries and adapters for Apache Kafka, Apache Camel, Eclipse Dataspace Components (EDC), OpenTelemetry, PM4Py process mining, and OpenLMIS.
+Instead of treating disruptions as static map markers or generating ungrounded AI predictions, RAD models the complete multi-tier commercial graph—tracing physical hazards through exposed logistics corridors down to assembly bill-of-materials, stockout days of cover, and trade-off-optimized recovery actions.
+
+$$\text{Hazard Trigger} \longrightarrow \text{Exposed Corridors \& Nodes} \longrightarrow \text{Inventory Stockout Projection} \longrightarrow \text{Multi-Objective Recovery Simulation} \longrightarrow \text{Approved Action} \longrightarrow \text{Immutable Audit Ledger}$$
+
+```mermaid
+graph TD
+    subgraph S1["1. PHYSICAL DISRUPTION"]
+        A1["USGS / PDC / FIRMS Telemetry"] --> A2["Active Hazard Zone"]
+        A2 --> A3["Uber H3 Spatial Grid Indexing"]
+    end
+
+    subgraph S2["2. EXPOSURE & GRAPH PROPAGATION"]
+        A3 --> B1["Spatial Geofencing"]
+        B1 --> B2["Intersected Route Legs"]
+        B1 --> B3["Exposed Facilities"]
+        B2 --> B4["Multi-Tier Dependency Graph"]
+        B3 --> B4
+    end
+
+    subgraph S3["3. BUSINESS IMPACT ANALYSIS"]
+        B4 --> C1["Consignment Disruption"]
+        C1 --> C2["WMS Stock on Hand Projection"]
+        C2 --> C3["Critical Product Days of Cover < 5.0d"]
+        C3 --> C4["Component Impact Scoring S × E × C × D × F"]
+    end
+
+    subgraph S4["4. RECOVERY SCENARIO SIMULATION"]
+        C4 --> D1["Reroute Maritime Corridor"]
+        C4 --> D2["Inter-Warehouse Inventory Transfer"]
+        C4 --> D3["Dual-Source Order Splitting"]
+        C4 --> D4["Emergency Freight Expediting"]
+    end
+
+    subgraph S5["5. GOVERNANCE & LEDGER"]
+        D1 & D2 & D3 & D4 --> E1["Multi-Objective Trade-Off Comparison"]
+        E1 --> E2["Recommended Action + Evidence Drawer"]
+        E2 --> E3["Operator Approval & Owner Assignment"]
+        E3 --> E4["Immutable Audit Ledger & Telemetry"]
+    end
+
+    style A2 fill:#1f2937,stroke:#ef4444,stroke-width:2px,color:#f87171
+    style B4 fill:#1f2937,stroke:#f59e0b,stroke-width:2px,color:#fbbf24
+    style C3 fill:#1f2937,stroke:#dc2626,stroke-width:2px,color:#fca5a5
+    style E2 fill:#1f2937,stroke:#10b981,stroke-width:2px,color:#34d399
+    style E4 fill:#1f2937,stroke:#3b82f6,stroke-width:2px,color:#60a5fa
+```
+
+---
+
+## 🏛️ Epistemic Truth & Classification System
+
+RAD enforces strict epistemic honesty across all views, data attributes, and calculated scores:
+
+| Badge | Epistemic Status | Definition | Example in RAD |
+|---|---|---|---|
+| <kbd>OBSERVED</kbd> | Direct Fact | Ground-truth measurement from sensors, physical telemetry, or authoritative ERP/WMS reads. | Facility GPS coordinates, WMS cycle counts, active hazard coordinates. |
+| <kbd>INFERRED</kbd> | Derived Reality | Deterministic mathematical derivation based strictly on observed data. | H3 hazard cell coverage, route corridor intersection, projected stockout date. |
+| <kbd>SIMULATED</kbd> | Counterfactual | Outcome generated by the heuristic or optimization scenario engine. | Alternate bypass transit time, air charter surcharge, avoided stockout days. |
+| <kbd>UNKNOWN</kbd> | Visibly Unobserved | Data that has not been reported; strictly preserved without hallucination. | Supplier Scope 3 emissions (displayed as `"Not Available"`), unlinked vessel IDs. |
+| <kbd>STALE</kbd> | Expired TTL | Fact whose observation timestamp exceeds the valid operational window. | AIS telemetry older than provider update frequency. |
+
+> [!IMPORTANT]
+> **No Synthetic Certainty**: When commercial data is missing, RAD lowers the calculation's `dataConfidence` score rather than inventing commercial certainty.
+
+---
+
+## 🧩 Multi-Tier Supply Chain Twin Graph
+
+```mermaid
+flowchart LR
+    subgraph Tier2["Tier-2 Raw Materials"]
+        SUP_KYO["Kyoto Silicon<br/>(sup-kyoto)"]
+        SUP_YOK["Yokohama Alternate<br/>(sup-yokohama)"]
+        SUP_BAV["Bavaria Resins<br/>(sup-bavaria)"]
+    end
+
+    subgraph Tier1["Tier-1 Component Processing"]
+        FAC_TW["Taoyuan Packaging<br/>(fac-taoyuan-pack)"]
+    end
+
+    subgraph Logistics["Logistics & Maritime Corridors"]
+        PORT_KHH["Port of Kaohsiung<br/>(port-kaohsiung)"]
+        LEG_1002["Maritime Leg 1002-1<br/>[Traverses Taiwan Strait]"]
+        PORT_LA["Port of LA / Long Beach<br/>(port-la-lb)"]
+    end
+
+    subgraph Manufacturing["Assembly & Manufacturing Hubs"]
+        FAC_SG["Singapore Precision Fab<br/>(fac-sg-assembly)"]
+        FAC_ATX["Austin Semiconductor Fab<br/>(fac-austin-fab)"]
+    end
+
+    subgraph Distribution["Fulfillment & Warehouses"]
+        WH_CG["Changi Logistics Hub<br/>(wh-changi-hub)"]
+        WH_RTM["Rotterdam EuroHub<br/>(wh-rotterdam)"]
+        WH_LB["Long Beach DC<br/>(wh-lb-dc)"]
+    end
+
+    SUP_KYO -->|High-Purity Ingot| FAC_TW
+    SUP_YOK -.->|Qualified Alternate| FAC_TW
+    SUP_BAV -->|Optical Polymers| FAC_ATX
+
+    FAC_TW -->|Apex Core MCU-900| PORT_KHH
+    PORT_KHH --> LEG_1002
+    LEG_1002 -->|Disrupted by Typhoon Gaemi| FAC_SG
+
+    FAC_SG -->|Finished Controllers| WH_CG
+    FAC_ATX -->|Industrial Modules| WH_LB
+    FAC_SG -->|European Allocations| WH_RTM
+
+    style LEG_1002 fill:#451a03,stroke:#f59e0b,stroke-width:3px,stroke-dasharray: 5 5,color:#fef3c7
+    style FAC_SG fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#e0e7ff
+    style FAC_TW fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#d1fae5
+```
+
+---
+
+## 🔬 Core Engine Architecture
+
+### 1. Transparent Component Impact Scoring
+RAD rejects opaque AI scores in favor of an explainable, 5-factor mathematical model:
+
+$$\text{Impact} = S \times E \times C \times D \times F$$
+
+- **Hazard Severity ($S \in [0, 1]$)**: Energy release, wind velocity, seismic magnitude, or dwell delay.
+- **Asset Exposure ($E \in [0, 1]$)**: Spatial proximity, corridor containment, and H3 cell intersection.
+- **Business Criticality ($C \in [0, 1]$)**: Asset tier, product category priority, and BOM centrality.
+- **Recovery Difficulty ($D \in [0, 1]$)**: Alternate supplier availability, carrier lead times, and route elasticity.
+- **Data Confidence ($F \in [0, 1]$)**: Epistemic integrity, sensor freshness, and completeness of commercial data.
+
+### 2. Multi-Objective Recovery Solver
+Every evaluated recovery alternative outputs rigorous multi-dimensional trade-offs:
+- **Delay Delta ($\Delta t$)**: Projected schedule variance compared to unmitigated disruption.
+- **Cost Impact ($\Delta \$ USD$)**: Fuel surcharges, expedited charter costs, or expedited handling fees.
+- **Days Protected ($\Delta \text{DoC}$)**: Inventory coverage saved before assembly line stockout.
+- **Capacity Utilization**: Feasibility confirmation against warehouse throughput and transport weight limits.
+- **Carbon Footprint ($\text{tCO}_2\text{e}$)**: Energy emissions estimate, or explicitly `"Not Available"` when Scope 3 energy telemetry is unmetered.
+
+### 3. GS1 EPCIS 2.0 Native Traceability
+Internal events map directly to GS1 EPCIS 2.0 JSON-LD schema:
+- **WHAT**: `urn:epc:id:sgtin:0614141.100200.shp-1002`
+- **WHEN**: ISO 8601 UTC timestamp and timezone offset.
+- **WHERE**: `geo:23.50,119.50` read point and SGLN physical business location.
+- **WHY**: CBV business step (`transporting`, `receiving`, `holding`) and disposition (`in_transit`, `delayed`).
+- **HOW**: Real-time sensor reports (wind velocity, temperature excursions).
+- **PROVENANCE**: Source system, ingest timestamp, confidence score, and access classification.
 
 ---
 
@@ -31,52 +176,76 @@ The RAD Resilience Command Center equips supply chain directors, logistics contr
 Twenty layers and map sources. **Eighteen have a keyless path.**
 
 - **Sits on the real ground.** Entity heights are aligned to work with Google 3D tiles, so aircraft park on aprons and cameras stand on street corners instead of floating.
-- **Live Environmental Hazards**: Real-time cyclonic tracking, USGS seismic telemetry, and NASA FIRMS thermal anomaly detection.
-- **Vessel & Flight Context**: Live maritime AIS positions and ADS-B flight tracks provide real-world context for supply chain corridors.
-- **Spatial Grid Aggregation**: Multi-resolution Uber H3 cells compute and render dynamic hazard heatmaps.
+- **Live Environmental Hazard Integration**: Integrated real-time hazard layers including NOAA/ECMWF cyclonic tracks, USGS earthquake telemetry, and NASA FIRMS active wildfire hotspots.
+- **Global Context Feeds**: Live AIS maritime vessel positions and ADS-B flight vectors provide situational awareness around shipping corridors.
+- **Uber H3 Spatial Grid**: Multi-resolution hexagonal discrete global grid indexing for real-time hazard aggregation and asset geofencing.
 - DISPLAY ▸ **Draw** annotations, boundary markers, and measurement tools allow operators to mark corridors directly on the Cesium ellipsoid without exporting external geometry.
 
 ---
 
-## ⚡ Quickstart
+## 🚀 Quickstart & Localhost Execution
 
-### Prerequisites
-- Node.js >= 24.14.0
-- Modern Chromium or WebGL2-compatible browser
+### 1-Click Launchers
 
-### Running on Localhost
+#### Windows (File Explorer)
+Double-click **`start-server.bat`**:
+- Automatically checks for Node.js.
+- Installs dependencies if `node_modules` is missing.
+- Initializes `.env` with keyless defaults.
+- Starts the server and opens your browser at `http://localhost:5173`.
 
-#### Option A: 1-Click Launchers (Fastest)
-- **Windows**: Double-click **`start-server.bat`** (or run `.\start-server.ps1` in PowerShell)
-- **macOS / Linux / WSL**: Run `./start-server.sh`
+#### Windows PowerShell
+```powershell
+.\start-server.ps1
+```
 
-#### Option B: Standard npm Command
+#### macOS / Linux / WSL
 ```bash
-# Clone the repository
+chmod +x start-server.sh
+./start-server.sh
+```
+
+### Standard npm Terminal Commands
+```bash
+# 1. Clone the repository
 git clone https://github.com/SATTWIK-DEBNATH/HACKFEST.git
 cd HACKFEST
 
-# Install dependencies (including h3-js and Cesium)
+# 2. Install dependencies (including h3-js and Cesium)
 npm install
 
-# Start the local server (opens browser automatically at http://localhost:5173)
+# 3. Launch the development server
 npm start
+# Server opens at http://localhost:5173
 ```
 
-For full details on production builds, port configurations, and Docker support, see [Localhost Setup Guide](docs/RUN_LOCALLY.md).
-
-Visit `http://localhost:5173` to launch the RAD Resilience Command Center. Press `Alt+R` or click **RESILIENCE** in the bottom command dock to open the operations panel.
+> [!TIP]
+> **Keyboard Shortcut**: Press **`Alt+R`** anywhere in the browser to instantly open the **Resilience Command Center** panel.
 
 ---
 
-## 🧪 Testing & Verification
+## 🧪 Verification & Test Suite
 
-Run the comprehensive unit test suite:
+The repository includes 27 comprehensive, pure unit tests validating mathematical calculations, graph traversal, and schema constraints:
+
 ```bash
-# Run supply chain resilience test suite (27 tests)
+# Run supply chain resilience test battery
 node --test src/supplyChain/*.test.mjs
+```
 
-# Run package boundary and module ownership checks
+| Test Suite | Coverage | Status |
+|---|---|---|
+| `geofencing.test.mjs` | Haversine distance, H3 discrete cell indexing, spatial lookup | **PASS** (6/6) |
+| `routeExposure.test.mjs` | Line segment distance, route intersection with hazard radius | **PASS** (3/3) |
+| `dependencyPropagation.test.mjs` | Multi-hop graph traversal, critical stockout verification ($<5.0\text{d}$) | **PASS** (3/3) |
+| `missingDataConfidence.test.mjs` | `UNKNOWN` value preservation, confidence penalty verification | **PASS** (3/3) |
+| `scenarioFeasibility.test.mjs` | 4 recovery archetypes, carbon "Not Available" fallback | **PASS** (2/2) |
+| `actionLedger.test.mjs` | State transitions, owner assignment, immutable audit trail | **PASS** (3/3) |
+| `dataValidation.test.mjs` | CSV/JSON schema validation, non-silent rejection of invalid rows | **PASS** (4/4) |
+| `epcis.test.mjs` | GS1 EPCIS 2.0 JSON-LD normalization, mock query adapter | **PASS** (3/3) |
+
+```bash
+# Verify architectural package boundaries
 npm run check:boundaries
 
 # Run production build
@@ -85,21 +254,31 @@ npm run build
 
 ---
 
-## 📚 Technical Documentation
+## 🔌 Enterprise Integration Specifications
 
-- [Architecture & Technical Specification](docs/SUPPLY_CHAIN_ARCHITECTURE.md): Complete system overview, data flow diagrams, mathematical formulas, and integration boundaries.
-- [Data Dictionary](docs/SUPPLY_CHAIN_DATA_DICTIONARY.md): Complete schema definitions for Facility, Supplier, Product, InventoryPosition, Shipment, RouteLeg, and Action entities.
-- [Operator Demo Script](docs/SUPPLY_CHAIN_DEMO_SCRIPT.md): Step-by-step verification walkthrough demonstrating the end-to-end hazard-to-action workflow.
+| Integration | Protocol / Pattern | Implementation Status | Purpose |
+|---|---|---|---|
+| **GS1 EPCIS 2.0** | JSON-LD / REST | Local Mock Adapter (`epcis.js`) | Standardized shipment and facility event traceability |
+| **Apache Kafka** | Pub/Sub Streaming | In-Memory Streaming Broker (`kafka.js`) | Real-time event streaming for shipment GPS and alerts |
+| **Apache Camel** | Enterprise Integration Patterns | EIP Route Transformer (`camel.js`) | EDI 315 / SAP IDoc to EPCIS message translation |
+| **Eclipse Dataspace (EDC)** | Sovereign Data Sharing | Contract Policy Evaluator (`edc.js`) | Access-classified partner data governance |
+| **OpenTelemetry** | W3C Distributed Tracing | Trace & Metric Spans (`telemetry.js`) | Ingestion latency and solver performance observability |
+| **Process Mining (PM4Py)** | IEEE XES Event Log | Out-of-Process Adapter (`pm4py.js`) | Cycle-time analysis (Isolated to protect MIT vs AGPL-3.0) |
+| **OpenLMIS** | Humanitarian Logistics | Cold-Chain Requisition (`openlmis.js`) | Vaccine excursion management and humanitarian relief |
 
 ---
 
-## 🔒 Security & Privacy
+## 📖 Documentation Index
 
-RAD operates on an epistemic classification model:
-- `OBSERVED`: Direct telemetry, ERP facts, or verified sensor readings.
-- `INFERRED`: Derived via spatial geofencing or dependency path traversal.
-- `SIMULATED`: Hypothetical intervention output.
-- `UNKNOWN`: Visibly missing commercial data (never synthesized or hallucinated).
-- `STALE`: Data whose age exceeds configured TTL.
+- 📘 [Supply Chain Architecture Specification](docs/SUPPLY_CHAIN_ARCHITECTURE.md) — Comprehensive architecture, mathematical scoring derivations, H3 specs, and Google OR-Tools adapter boundaries.
+- 📗 [Supply Chain Data Dictionary](docs/SUPPLY_CHAIN_DATA_DICTIONARY.md) — Detailed schema definitions for all domain entities, types, nullability rules, and EPCIS schemas.
+- 📙 [Operator Demo Walkthrough Script](docs/SUPPLY_CHAIN_DEMO_SCRIPT.md) — Step-by-step guide executing all 9 evaluation acceptance criteria.
+- 📕 [Localhost Setup & Operations Guide](docs/RUN_LOCALLY.md) — Multi-environment setup (1-click launchers, custom ports, production previews, and Docker).
 
-All partner data and commercial shipment records maintain policy-controlled boundaries conforming to Eclipse Dataspace standards.
+---
+
+## ⚖️ License & Attribution
+
+- **Application Code**: Released under the [MIT License](LICENSE).
+- **Licensing Isolation**: The Process Mining adapter (`pm4py.js`) is intentionally architected across a clean network service boundary to preserve the MIT license against AGPL-3.0 copyleft obligations.
+- **Geospatial & Tile Providers**: Bundled datasets, OpenStreetMap, USGS, and Cesium ion carry their respective open data terms.
