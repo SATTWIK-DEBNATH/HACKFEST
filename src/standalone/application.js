@@ -98,6 +98,12 @@ export function createStandaloneApplication({
 
       resiliencePanel = createResiliencePanel({ supplyChainLayer, container: document.body });
 
+      // Wire top-center HUD pill trigger
+      const topTrigger = document.getElementById('resilience-top-trigger');
+      if (topTrigger) {
+        topTrigger.addEventListener('click', () => resiliencePanel.toggle());
+      }
+
       // Wire command dock trigger
       const dockTrigger = document.getElementById('resilience-dock-trigger');
       if (dockTrigger) {
@@ -110,6 +116,12 @@ export function createStandaloneApplication({
         contextModeBtn.addEventListener('click', () => resiliencePanel.open());
       }
 
+      // Synchronize trigger visual states with panel open/close
+      resiliencePanel.onToggleState((isOpen) => {
+        if (topTrigger) topTrigger.classList.toggle('active', isOpen);
+        if (dockTrigger) dockTrigger.classList.toggle('active', isOpen);
+      });
+
       // Alt+R shortcut
       window.addEventListener('keydown', (e) => {
         if (e.altKey && (e.key === 'r' || e.key === 'R')) {
@@ -117,6 +129,13 @@ export function createStandaloneApplication({
           resiliencePanel.toggle();
         }
       });
+
+      // Auto-open Resilience Command Center on startup so operator immediately experiences the UI/UX
+      setTimeout(() => {
+        if (resiliencePanel && !resiliencePanel.isOpen()) {
+          resiliencePanel.open('network');
+        }
+      }, 700);
 
       return controls;
     },

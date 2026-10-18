@@ -693,20 +693,35 @@ FAC-IMPORT-02,Rotterdam North Terminal,port,51.924,4.477,Netherlands,high,120000
   container.appendChild(panel);
   render();
 
+  const stateListeners = [];
+  function notifyListeners(openState) {
+    for (const listener of stateListeners) {
+      try { listener(openState); } catch (_) {}
+    }
+  }
+
   return {
     open(tab = 'network') {
       activeTab = tab;
       panel.classList.remove('collapsed');
       isPanelOpen = true;
+      notifyListeners(true);
       render();
     },
     close() {
       panel.classList.add('collapsed');
       isPanelOpen = false;
+      notifyListeners(false);
     },
     toggle() {
       if (isPanelOpen) this.close();
       else this.open();
+    },
+    isOpen() {
+      return isPanelOpen;
+    },
+    onToggleState(listener) {
+      if (typeof listener === 'function') stateListeners.push(listener);
     },
     setTwin(newTwin) {
       activeTwin = newTwin;
