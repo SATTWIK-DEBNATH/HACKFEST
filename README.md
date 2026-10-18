@@ -44,7 +44,13 @@ Twenty layers and map sources. **Eighteen have a keyless path.**
 - Node.js >= 24.14.0
 - Modern Chromium or WebGL2-compatible browser
 
-### Installation & Launch
+### Running on Localhost
+
+#### Option A: 1-Click Launchers (Fastest)
+- **Windows**: Double-click **`start-server.bat`** (or run `.\start-server.ps1` in PowerShell)
+- **macOS / Linux / WSL**: Run `./start-server.sh`
+
+#### Option B: Standard npm Command
 ```bash
 # Clone the repository
 git clone https://github.com/SATTWIK-DEBNATH/HACKFEST.git
@@ -53,9 +59,11 @@ cd HACKFEST
 # Install dependencies (including h3-js and Cesium)
 npm install
 
-# Start the local development server
-npm run dev
+# Start the local server (opens browser automatically at http://localhost:5173)
+npm start
 ```
+
+For full details on production builds, port configurations, and Docker support, see [Localhost Setup Guide](docs/RUN_LOCALLY.md).
 
 Visit `http://localhost:5173` to launch the RAD Resilience Command Center. Press `Alt+R` or click **RESILIENCE** in the bottom command dock to open the operations panel.
 
