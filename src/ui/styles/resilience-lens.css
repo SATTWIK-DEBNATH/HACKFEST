@@ -1,0 +1,281 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESEARCH ANALYSIS DIRECTORATE (RAD)
+   Resilience Lens — Cinematic Spatial Intelligence Visual Theme
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Atmospheric Reconnaissance Vignette over Globe */
+#cesiumContainer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 58%,
+    rgba(7, 11, 12, 0.32) 82%,
+    rgba(7, 11, 12, 0.72) 100%
+  );
+  box-shadow: inset 0 0 100px rgba(7, 11, 12, 0.6);
+}
+
+/* 2. Refined Optical Glass Surfaces & Control Panels */
+.panel-inner,
+.location-inner,
+.cctv-panel-inner,
+.global-context-panel-inner,
+.radio-panel-inner,
+.scene-panel-inner,
+.recent-imagery-panel-inner,
+.weather-panel-inner,
+.embed-panel-inner {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: var(--panel-radius) !important;
+  backdrop-filter: blur(24px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.2) !important;
+  box-shadow: var(--panel-shadow) !important;
+}
+
+/* Restrained Luminance on Panel Drag Handles */
+.panel-header {
+  border-bottom: 1px solid var(--surface-border-subtle);
+  padding-bottom: 8px;
+}
+
+.panel-title {
+  color: var(--text-primary) !important;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* 3. Command Dock Restyling */
+#command-dock {
+  background: rgba(13, 21, 22, 0.88) !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: var(--panel-radius) !important;
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 1px rgba(167, 215, 209, 0.06) !important;
+  backdrop-filter: blur(24px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.2) !important;
+}
+
+#command-dock > #location-bar {
+  border-right: 1px solid var(--surface-border-subtle) !important;
+}
+
+#command-dock > #control-panel {
+  border-left: 1px solid var(--surface-border-subtle) !important;
+}
+
+/* 4. Controls, Preset Buttons & Interactive Elements */
+.style-btn,
+.pp-toggle-btn,
+.map-stack-chip,
+.pp-mode-btn,
+.location-chip,
+.tray-tab-btn,
+.command-dock-pin,
+.hud-btn {
+  background: rgba(13, 21, 22, 0.6) !important;
+  border: 1px solid var(--surface-border-subtle) !important;
+  border-radius: var(--btn-radius) !important;
+  color: var(--text-secondary) !important;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast) !important;
+  transform: none !important;
+}
+
+.style-btn:hover,
+.pp-toggle-btn:hover,
+.map-stack-chip:hover,
+.pp-mode-btn:hover,
+.location-chip:hover,
+.tray-tab-btn:hover,
+.command-dock-pin:hover,
+.hud-btn:hover {
+  background: rgba(167, 215, 209, 0.08) !important;
+  border-color: var(--surface-border-hover) !important;
+  color: var(--text-primary) !important;
+  transform: none !important;
+}
+
+/* Active / Strategic Selected States (Warm Brass) */
+.style-btn.active,
+.pp-mode-btn.active,
+.tray-tab-btn.active,
+.command-dock-pin.active {
+  background: var(--accent-brass-dim) !important;
+  border-color: var(--accent-brass) !important;
+  color: var(--accent-brass-highlight) !important;
+  box-shadow: inset 0 0 0 1px var(--accent-brass-border) !important;
+}
+
+.style-btn.active .btn-icon,
+.tray-tab-btn.active .material-symbols-outlined {
+  color: var(--accent-brass-highlight) !important;
+  text-shadow: none !important;
+}
+
+/* Active Live Sensing States (Sea-Glass Cyan) */
+.pp-toggle-btn.active,
+.map-stack-chip.active,
+.location-chip.active {
+  background: var(--signal-cyan-dim) !important;
+  border-color: var(--signal-cyan-active) !important;
+  color: var(--signal-cyan-active) !important;
+  box-shadow: inset 0 0 0 1px rgba(156, 207, 202, 0.28) !important;
+}
+
+/* 5. Top Center Actions (3D/2D, Reset, Audio) */
+#top-center-actions button {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: var(--btn-radius) !important;
+  color: var(--text-secondary) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+#top-center-actions button:hover {
+  background: rgba(167, 215, 209, 0.1) !important;
+  border-color: var(--surface-border-hover) !important;
+  color: var(--text-primary) !important;
+  transform: none !important;
+}
+
+#tilt-map-view[aria-pressed='true'] {
+  border-color: var(--accent-brass) !important;
+  color: var(--accent-brass) !important;
+  background: var(--accent-brass-dim) !important;
+  box-shadow: inset 0 0 0 1px var(--accent-brass-border) !important;
+}
+
+/* 6. Inputs & Search Fields */
+input[type='text'],
+input[type='search'],
+select,
+textarea {
+  background: var(--surface-elevated) !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: var(--btn-radius) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+}
+
+input[type='text']:focus,
+input[type='search']:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent-brass) !important;
+  box-shadow: inset 0 0 0 1px var(--accent-brass-border) !important;
+  outline: none !important;
+}
+
+/* 7. Semantic Operational Badges */
+.badge-observed,
+[data-status='OBSERVED'] {
+  background: rgba(156, 207, 202, 0.12) !important;
+  color: var(--signal-cyan-muted) !important;
+  border: 1px solid rgba(156, 207, 202, 0.35) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-inferred,
+[data-status='INFERRED'] {
+  background: rgba(222, 195, 140, 0.12) !important;
+  color: var(--accent-brass) !important;
+  border: 1px solid rgba(222, 195, 140, 0.35) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-simulated,
+[data-status='SIMULATED'] {
+  background: rgba(157, 165, 168, 0.12) !important;
+  color: var(--state-simulated) !important;
+  border: 1px solid rgba(157, 165, 168, 0.28) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-stale,
+[data-status='STALE'] {
+  background: rgba(107, 124, 126, 0.12) !important;
+  color: var(--state-stale) !important;
+  border: 1px solid rgba(107, 124, 126, 0.28) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-critical,
+[data-status='CRITICAL'] {
+  background: rgba(237, 176, 138, 0.14) !important;
+  color: var(--state-critical) !important;
+  border: 1px solid rgba(237, 176, 138, 0.38) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-confirmed,
+[data-status='CONFIRMED'] {
+  background: rgba(158, 211, 191, 0.12) !important;
+  color: var(--state-healthy) !important;
+  border: 1px solid rgba(158, 211, 191, 0.35) !important;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* 8. Telemetry & Monospace Tabular Numerals */
+.telemetry-row,
+.coord-display,
+.timestamp-display,
+.confidence-display,
+.kpi-value,
+.data-metric {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* 9. Accessible Keyboard Focus */
+:where(
+  button,
+  a[href],
+  input,
+  select,
+  textarea,
+  [tabindex]
+):focus-visible {
+  outline: 2px solid var(--accent-brass) !important;
+  outline-offset: 2px !important;
+}
+
+/* 10. Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

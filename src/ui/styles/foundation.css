@@ -1,27 +1,62 @@
 /* ═══════════════════════════════════════════════
-   GOD'S EYE VIEW — Dark Sci-Fi UI
-   Apple meets Blade Runner
+   RESEARCH ANALYSIS DIRECTORATE (RAD)
+   Resilience Lens — Spatial Intelligence Theme
    ═══════════════════════════════════════════════ */
 
 :root {
-  --bg-dark: #0a0a0f;
-  --glass-bg: rgba(12, 12, 20, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
-  --accent: #00d4ff;
-  --accent-dim: rgba(0, 212, 255, 0.15);
-  --accent-glow: rgba(0, 212, 255, 0.4);
-  --text-primary: #e8eaed;
-  --text-secondary: rgba(232, 234, 237, 0.5);
-  --text-dim: rgba(232, 234, 237, 0.3);
-  /* Opaque surface for browser-painted menus, which cannot use --glass-bg. */
-  --menu-bg: #12121c;
+  /* 1. Base Surfaces */
+  --surface-base: #070B0C;
+  --surface-elevated: #0D1516;
+  --surface-secondary: #142021;
+  --surface-border: rgba(167, 215, 209, 0.18);
+  --surface-border-subtle: rgba(167, 215, 209, 0.09);
+  --surface-border-hover: rgba(167, 215, 209, 0.32);
+
+  /* 2. Primary Signal (Live / Active Sensing) */
+  --signal-cyan-muted: #9CCFCA;
+  --signal-cyan-active: #B6E4DE;
+  --signal-cyan-dim: rgba(156, 207, 202, 0.12);
+  --signal-cyan-glow: rgba(156, 207, 202, 0.22);
+
+  /* 3. Warm Strategic Accent */
+  --accent-brass: #DEC38C;
+  --accent-brass-highlight: #E8CE9D;
+  --accent-brass-dim: rgba(222, 195, 140, 0.14);
+  --accent-brass-border: rgba(222, 195, 140, 0.45);
+
+  /* 4. Operational States */
+  --state-healthy: #9ED3BF;
+  --state-warning: #E6C484;
+  --state-critical: #EDB08A;
+  --state-neutral: #8FA8A6;
+  --state-stale: #6B7C7E;
+  --state-simulated: #9DA5A8;
+
+  /* 5. Typography Tokens */
+  --text-primary: #DDE6E5;
+  --text-secondary: #8FA8A6;
+  --text-dim: rgba(143, 168, 166, 0.52);
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --panel-radius: 16px;
-  --btn-radius: 10px;
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 6. Optical Glass Surfaces & Geometry */
+  --bg-dark: var(--surface-base);
+  --menu-bg: var(--surface-elevated);
+  --glass-bg: rgba(13, 21, 22, 0.82);
+  --glass-border: var(--surface-border);
+  --glass-border-hover: var(--surface-border-hover);
+  --accent: var(--signal-cyan-muted);
+  --accent-dim: var(--signal-cyan-dim);
+  --accent-glow: var(--signal-cyan-glow);
+  --panel-radius: 8px;
+  --btn-radius: 6px;
+  --panel-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(167, 215, 209, 0.06);
+
+  /* 7. Precision Motion */
+  --transition-fast: 140ms cubic-bezier(0.2, 0, 0, 1);
+  --transition-smooth: 180ms cubic-bezier(0.2, 0, 0, 1);
+
+  /* Preserved Layout Dimensions */
   --left-stack-x: 52px;
   --right-rail-x: 52px;
   --left-stack-top: 26vh;

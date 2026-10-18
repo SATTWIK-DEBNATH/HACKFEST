@@ -35,9 +35,9 @@
   --panel-surface-font: var(--font-sans);
   --panel-surface-detail: none;
   --panel-surface-frame: none;
-  --panel-surface-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
-  --panel-surface-title: var(--text-secondary);
-  --panel-surface-error: #ff9b8e;
+  --panel-surface-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(167, 215, 209, 0.08);
+  --panel-surface-title: var(--signal-cyan-active);
+  --panel-surface-error: var(--state-critical);
   --panel-surface-width: 300px;
   --panel-surface-collapsed-width: var(--left-collapsed-width);
 }

@@ -13,14 +13,16 @@ import { h3CellToCoordinates } from '../../supplyChain/spatialIndex.js';
 
 export const SUPPLY_CHAIN_LAYER_ID = 'supply-chain-twin';
 
-const COLOR_CRITICAL = Cesium.Color.fromCssColorString('#ef4444');
-const COLOR_HIGH = Cesium.Color.fromCssColorString('#f59e0b');
-const COLOR_NORMAL = Cesium.Color.fromCssColorString('#06b6d4');
-const COLOR_SIMULATED = Cesium.Color.fromCssColorString('#10b981');
-const COLOR_PORT = Cesium.Color.fromCssColorString('#3b82f6');
-const COLOR_MFG = Cesium.Color.fromCssColorString('#a855f7');
-const COLOR_WAREHOUSE = Cesium.Color.fromCssColorString('#10b981');
-const COLOR_SUPPLIER = Cesium.Color.fromCssColorString('#06b6d4');
+// Resilience Lens Restrained Color Palette
+const COLOR_CRITICAL = Cesium.Color.fromCssColorString('#EDB08A'); // Warm orange / critical disruption
+const COLOR_HIGH = Cesium.Color.fromCssColorString('#E6C484'); // Warning / inferred brass
+const COLOR_NORMAL = Cesium.Color.fromCssColorString('#9CCFCA'); // Sea-glass cyan
+const COLOR_SIMULATED = Cesium.Color.fromCssColorString('#DEC38C'); // Warm brass / simulated recovery
+const COLOR_PORT = Cesium.Color.fromCssColorString('#9CCFCA'); // Muted sea-glass cyan
+const COLOR_MFG = Cesium.Color.fromCssColorString('#DEC38C'); // Aged brass
+const COLOR_WAREHOUSE = Cesium.Color.fromCssColorString('#9ED3BF'); // Muted green / healthy
+const COLOR_SUPPLIER = Cesium.Color.fromCssColorString('#B6E4DE'); // Strong cyan
+const COLOR_SELECTED_OUTLINE = Cesium.Color.fromCssColorString('#E8CE9D'); // Highlight brass halo
 
 /**
  * Creates the Supply Chain Twin 3D globe layer
@@ -116,7 +118,7 @@ export function createSupplyChainLayer({ twin = null, onSelectAsset = null } = {
         point: {
           pixelSize: isSelected ? 18 : isAffected ? 15 : 12,
           color,
-          outlineColor: isSelected ? Cesium.Color.WHITE : isAffected ? COLOR_CRITICAL : Cesium.Color.BLACK,
+          outlineColor: isSelected ? COLOR_SELECTED_OUTLINE : isAffected ? COLOR_CRITICAL : Cesium.Color.BLACK,
           outlineWidth: isSelected ? 3 : 2,
         },
         _scType: 'facility',
@@ -154,7 +156,7 @@ export function createSupplyChainLayer({ twin = null, onSelectAsset = null } = {
         ? COLOR_CRITICAL
         : leg.geometrySource === 'simulated'
           ? COLOR_SIMULATED
-          : Cesium.Color.fromCssColorString('#06b6d4');
+          : COLOR_NORMAL;
 
       _dataSource.entities.add({
         id: `route-leg-${leg.id}`,
