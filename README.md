@@ -25,7 +25,7 @@ The **RAD Supply Chain Resilience Command Center** bridges real-world disruption
 
 Instead of treating disruptions as static map markers or generating ungrounded AI predictions, RAD models the complete multi-tier commercial graph—tracing physical hazards through exposed logistics corridors down to assembly bill-of-materials, stockout days of cover, and trade-off-optimized recovery actions.
 
-$$\text{Hazard Trigger} \longrightarrow \text{Exposed Corridors \& Nodes} \longrightarrow \text{Inventory Stockout Projection} \longrightarrow \text{Multi-Objective Recovery Simulation} \longrightarrow \text{Approved Action} \longrightarrow \text{Immutable Audit Ledger}$$
+$$\text{Hazard Trigger} \longrightarrow \text{Exposed Corridors and Nodes} \longrightarrow \text{Inventory Stockout Projection} \longrightarrow \text{Multi-Objective Recovery Simulation} \longrightarrow \text{Approved Action} \longrightarrow \text{Immutable Audit Ledger}$$
 
 ```mermaid
 graph TD
