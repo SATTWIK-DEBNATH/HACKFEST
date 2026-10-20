@@ -10,6 +10,7 @@ import { resolveLocale, applyDocumentLanguage } from '../i18n/locale.js';
 import { applyDocumentTranslations, setLocale } from '../i18n/index.js';
 import { createGoogleTokenSource } from '../maps/googleTokens.js';
 import { createResiliencePanel } from '../ui/resiliencePanel.js';
+import { createWorldIntelligencePanel } from '../ui/worldIntelligencePanel.js';
 import { createSupplyChainLayer } from '../layers/supplyChain/index.js';
 
 // The existing controls and layer catalog contain page-scoped state.
@@ -98,6 +99,38 @@ export function createStandaloneApplication({
 
       resiliencePanel = createResiliencePanel({ supplyChainLayer, container: document.body });
 
+      // Initialize World Intelligence & Threat Radar (WorldMonitor integration)
+      const worldIntelPanel = createWorldIntelligencePanel({
+        viewer: context.scene?.viewer,
+        container: document.body
+      });
+
+      // Wire top-center HUD pill trigger for World Intel
+      const intelTopTrigger = document.getElementById('intel-top-trigger');
+      if (intelTopTrigger) {
+        intelTopTrigger.addEventListener('click', () => worldIntelPanel.toggle());
+      }
+
+      // Wire command dock trigger for World Intel
+      const intelDockTrigger = document.getElementById('intel-dock-trigger');
+      if (intelDockTrigger) {
+        intelDockTrigger.addEventListener('click', () => worldIntelPanel.toggle());
+      }
+
+      // Synchronize trigger visual states with intel panel open/close
+      worldIntelPanel.onToggleState((isOpen) => {
+        if (intelTopTrigger) intelTopTrigger.classList.toggle('active', isOpen);
+        if (intelDockTrigger) intelDockTrigger.classList.toggle('active', isOpen);
+      });
+
+      // Alt+I shortcut for World Intelligence Radar
+      window.addEventListener('keydown', (e) => {
+        if (e.altKey && (e.key === 'i' || e.key === 'I')) {
+          e.preventDefault();
+          worldIntelPanel.toggle();
+        }
+      });
+
       // Wire top-center HUD pill trigger
       const topTrigger = document.getElementById('resilience-top-trigger');
       if (topTrigger) {
@@ -130,13 +163,7 @@ export function createStandaloneApplication({
         }
       });
 
-      // Auto-open Resilience Command Center on startup so operator immediately experiences the UI/UX
-      setTimeout(() => {
-        if (resiliencePanel && !resiliencePanel.isOpen()) {
-          resiliencePanel.open('network');
-        }
-      }, 700);
-
+      // Panels remain closed on startup for a clean globe viewport; accessible via Alt+I, Alt+R, top HUD pills, or dock triggers
       return controls;
     },
     createData: (context) =>

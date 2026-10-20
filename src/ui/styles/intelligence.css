@@ -1,0 +1,965 @@
+/* Research Analysis Directorate — World Intelligence & Threat Radar
+   Styles for WorldMonitor Analytical Stack, Geopolitical CII, Macro/Sentiment, Cyber & Space Hazards */
+
+#world-intelligence-panel {
+  position: fixed;
+  top: 60px;
+  left: 20px;
+  width: min(540px, calc(100vw - 40px));
+  max-height: calc(100vh - 80px);
+  z-index: 155;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary, #DDE6E5);
+  background: rgba(10, 16, 18, 0.94);
+  border: 1px solid var(--surface-border, rgba(167, 215, 209, 0.22));
+  border-radius: 10px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(167, 215, 209, 0.1);
+  backdrop-filter: blur(28px) saturate(1.3);
+  -webkit-backdrop-filter: blur(28px) saturate(1.3);
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  font-size: 12px;
+  pointer-events: auto;
+  overflow: hidden;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+#world-intelligence-panel.minimized {
+  max-height: 44px;
+}
+
+#world-intelligence-panel.hidden {
+  display: none !important;
+}
+
+/* Panel Header */
+.intel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(6, 10, 12, 0.96);
+  border-bottom: 1px solid rgba(167, 215, 209, 0.12);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.intel-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.intel-pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: intel-radar-pulse 2s infinite ease-in-out;
+}
+
+@keyframes intel-radar-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.intel-title-text {
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: #B6E4DE;
+  text-transform: uppercase;
+}
+
+.intel-badge-live {
+  font-size: 9px;
+  padding: 2px 5px;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  color: #00f0ff;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.intel-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.intel-btn-icon {
+  background: rgba(167, 215, 209, 0.06);
+  border: 1px solid rgba(167, 215, 209, 0.16);
+  color: #8FA8A6;
+  font-family: inherit;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.intel-btn-icon:hover {
+  background: rgba(167, 215, 209, 0.18);
+  color: #E2FAF8;
+  border-color: rgba(167, 215, 209, 0.4);
+}
+
+/* Nav Tabs */
+.intel-tabs-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgba(8, 14, 16, 0.98);
+  border-bottom: 1px solid rgba(167, 215, 209, 0.14);
+  flex-shrink: 0;
+}
+
+.intel-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #7A9694;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 8px 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 140ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.intel-tab-btn:hover {
+  color: #B6E4DE;
+  background: rgba(167, 215, 209, 0.04);
+}
+
+.intel-tab-btn.active {
+  color: #00f0ff;
+  border-bottom-color: #00f0ff;
+  background: rgba(0, 240, 255, 0.07);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
+}
+
+/* Scrollable Container */
+.intel-scroll-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 14px 18px 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167, 215, 209, 0.25) transparent;
+}
+
+.intel-scroll-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.intel-scroll-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.intel-scroll-body::-webkit-scrollbar-thumb {
+  background: rgba(167, 215, 209, 0.25);
+  border-radius: 4px;
+}
+
+/* Section Cards */
+.intel-card {
+  background: rgba(14, 23, 26, 0.7);
+  border: 1px solid rgba(167, 215, 209, 0.12);
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.intel-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(167, 215, 209, 0.08);
+  padding-bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #B6E4DE;
+  letter-spacing: 0.04em;
+}
+
+.intel-card-subtitle {
+  font-size: 9.5px;
+  color: #6C8B89;
+  font-weight: 400;
+}
+
+/* Fly to button */
+.intel-fly-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(0, 240, 255, 0.09);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00f0ff;
+  cursor: pointer;
+  transition: all 120ms ease;
+  font-family: inherit;
+}
+
+.intel-fly-btn:hover {
+  background: rgba(0, 240, 255, 0.22);
+  border-color: #00f0ff;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+/* Tab 1: Analytical Stack Components */
+.intel-brief-box {
+  background: rgba(8, 14, 16, 0.85);
+  border-left: 3px solid #00f0ff;
+  padding: 10px;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.5;
+  font-size: 11px;
+  color: #CFE0DE;
+}
+
+.intel-citation-anchor {
+  display: inline-block;
+  color: #00f0ff;
+  font-weight: 700;
+  padding: 0 3px;
+  border-radius: 2px;
+  background: rgba(0, 240, 255, 0.1);
+  margin: 0 2px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.intel-citation-anchor:hover {
+  background: #00f0ff;
+  color: #000;
+}
+
+.intel-sources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 9.5px;
+  color: #7D9C9A;
+}
+
+.intel-source-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px;
+  background: rgba(167, 215, 209, 0.04);
+  border-radius: 3px;
+}
+
+/* Deduction & Forecasting Timeline */
+.intel-forecast-item {
+  border: 1px solid rgba(167, 215, 209, 0.14);
+  border-radius: 5px;
+  padding: 8px 10px;
+  background: rgba(10, 18, 20, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.intel-forecast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.intel-forecast-hypothesis {
+  font-weight: 600;
+  color: #E6F3F1;
+  font-size: 11px;
+}
+
+.intel-forecast-conf {
+  font-size: 10px;
+  font-weight: 700;
+  color: #00f0ff;
+}
+
+.intel-forecast-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.intel-forecast-step-card {
+  background: rgba(167, 215, 209, 0.05);
+  border: 1px solid rgba(167, 215, 209, 0.1);
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.intel-forecast-step-time {
+  color: #F8B446;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.intel-forecast-step-desc {
+  color: #ADC5C3;
+  line-height: 1.3;
+}
+
+.intel-scorecard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.intel-score-box {
+  background: rgba(167, 215, 209, 0.04);
+  border: 1px solid rgba(167, 215, 209, 0.1);
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.intel-score-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00f0ff;
+}
+
+.intel-score-lbl {
+  font-size: 8.5px;
+  color: #7D9C9A;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* RAG Search & Convergence */
+.intel-rag-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.intel-input {
+  flex: 1;
+  background: rgba(6, 11, 13, 0.9);
+  border: 1px solid rgba(167, 215, 209, 0.2);
+  color: #DDE6E5;
+  font-family: inherit;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.intel-input:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+.intel-rag-results {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.intel-rag-item {
+  background: rgba(167, 215, 209, 0.04);
+  border-left: 2px solid #36d399;
+  padding: 5px 8px;
+  border-radius: 0 3px 3px 0;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* AI Chat Assistant */
+.intel-chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 6px;
+  background: rgba(7, 12, 14, 0.7);
+  border: 1px solid rgba(167, 215, 209, 0.1);
+  border-radius: 4px;
+}
+
+.intel-chat-msg {
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.intel-chat-msg.user {
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  align-self: flex-end;
+  color: #E2FAF8;
+  max-width: 85%;
+}
+
+.intel-chat-msg.bot {
+  background: rgba(167, 215, 209, 0.06);
+  border-left: 2px solid #00f0ff;
+  align-self: flex-start;
+  color: #C6DCDA;
+  max-width: 95%;
+}
+
+/* Convergence alert */
+.intel-conv-card {
+  background: rgba(248, 180, 70, 0.07);
+  border: 1px solid rgba(248, 180, 70, 0.3);
+  padding: 8px 10px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.intel-conv-badge {
+  background: #f8b446;
+  color: #000;
+  font-weight: 700;
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 2px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+/* Tab 2: Geopolitical CII v10 & Hotspots */
+.intel-cii-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.intel-cii-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: rgba(167, 215, 209, 0.04);
+  border: 1px solid rgba(167, 215, 209, 0.08);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.intel-cii-row:hover {
+  background: rgba(167, 215, 209, 0.1);
+  border-color: rgba(167, 215, 209, 0.3);
+}
+
+.intel-cii-rank {
+  font-size: 9.5px;
+  color: #7D9C9A;
+  width: 20px;
+}
+
+.intel-cii-name {
+  font-weight: 600;
+  color: #E2FAF8;
+  flex: 1;
+}
+
+.intel-cii-score-badge {
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.intel-band-critical { background: rgba(255, 69, 58, 0.2); border: 1px solid #ff453a; color: #ff453a; }
+.intel-band-high { background: rgba(248, 180, 70, 0.2); border: 1px solid #f8b446; color: #f8b446; }
+.intel-band-elevated { background: rgba(255, 214, 10, 0.2); border: 1px solid #ffd60a; color: #ffd60a; }
+.intel-band-moderate { background: rgba(0, 240, 255, 0.15); border: 1px solid #00f0ff; color: #00f0ff; }
+.intel-band-low { background: rgba(52, 199, 89, 0.15); border: 1px solid #34c759; color: #34c759; }
+
+/* Country Dossier Modal / View */
+.intel-dossier-box {
+  background: rgba(7, 13, 15, 0.95);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.intel-dossier-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.intel-dial-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.intel-dial-svg {
+  width: 72px;
+  height: 72px;
+  transform: rotate(-90deg);
+}
+
+.intel-dial-circle-bg {
+  stroke: rgba(167, 215, 209, 0.12);
+  stroke-width: 8;
+  fill: none;
+}
+
+.intel-dial-circle-val {
+  stroke-width: 8;
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dasharray 400ms ease;
+}
+
+.intel-dossier-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  font-size: 9.5px;
+}
+
+.intel-dossier-metric {
+  background: rgba(167, 215, 209, 0.05);
+  padding: 4px 6px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 7-Day Multi-lane Timeline */
+.intel-lanes-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.intel-lane-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+}
+
+.intel-lane-lbl {
+  color: #8FA8A6;
+  text-transform: uppercase;
+}
+
+.intel-lane-bar {
+  display: flex;
+  gap: 3px;
+  height: 12px;
+  align-items: center;
+}
+
+.intel-lane-node {
+  flex: 1;
+  height: 8px;
+  border-radius: 2px;
+  background: rgba(167, 215, 209, 0.1);
+  transition: all 120ms ease;
+}
+
+.intel-lane-node.active-high { background: #ff453a; box-shadow: 0 0 6px #ff453a; }
+.intel-lane-node.active-med { background: #f8b446; }
+.intel-lane-node.active-low { background: #00f0ff; }
+
+/* Hotspots ladder */
+.intel-hotspot-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: rgba(167, 215, 209, 0.03);
+  border: 1px solid rgba(167, 215, 209, 0.08);
+  border-radius: 4px;
+}
+
+.intel-hotspot-title {
+  font-weight: 600;
+  color: #DDE6E5;
+  font-size: 10.5px;
+}
+
+.intel-hotspot-level {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.intel-hotspot-pip {
+  width: 6px;
+  height: 12px;
+  border-radius: 1px;
+  background: rgba(167, 215, 209, 0.15);
+}
+
+.intel-hotspot-pip.on-red { background: #ff453a; box-shadow: 0 0 4px #ff453a; }
+.intel-hotspot-pip.on-amber { background: #f8b446; }
+.intel-hotspot-pip.on-cyan { background: #00f0ff; }
+
+/* Tab 3: Macro & Sentiment Radar */
+.intel-tickers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.intel-ticker-card {
+  background: rgba(167, 215, 209, 0.04);
+  border: 1px solid rgba(167, 215, 209, 0.1);
+  border-radius: 4px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.intel-ticker-name {
+  font-size: 9px;
+  color: #8FA8A6;
+  font-weight: 600;
+}
+
+.intel-ticker-price {
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.intel-ticker-change {
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+.intel-change-up { color: #34c759; }
+.intel-change-down { color: #ff453a; }
+
+/* Shanghai Gold Exchange Divergence Card */
+.intel-sge-card {
+  background: linear-gradient(135deg, rgba(248, 180, 70, 0.08) 0%, rgba(13, 21, 22, 0.9) 100%);
+  border: 1px solid rgba(248, 180, 70, 0.35);
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.intel-sge-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+}
+
+.intel-sge-spread {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8b446;
+}
+
+/* FX Stress Radar */
+.intel-fx-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.intel-fx-item {
+  background: rgba(167, 215, 209, 0.04);
+  border: 1px solid rgba(167, 215, 209, 0.08);
+  border-radius: 4px;
+  padding: 5px 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.intel-fx-pair {
+  font-weight: 600;
+  font-size: 10px;
+  color: #E2FAF8;
+}
+
+/* Yield curve gauge */
+.intel-yield-curve-box {
+  background: rgba(10, 18, 20, 0.7);
+  border: 1px solid rgba(167, 215, 209, 0.12);
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.intel-curve-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 50px;
+  gap: 8px;
+  padding-top: 10px;
+  border-bottom: 1px solid rgba(167, 215, 209, 0.15);
+}
+
+.intel-curve-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.intel-curve-pillar {
+  width: 100%;
+  background: #00f0ff;
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+}
+
+.intel-curve-lbl {
+  font-size: 8px;
+  color: #7D9C9A;
+  margin-top: 4px;
+}
+
+/* Polymarket Table */
+.intel-poly-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.intel-poly-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  background: rgba(167, 215, 209, 0.04);
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+.intel-poly-odds {
+  font-weight: 700;
+  color: #34c759;
+}
+
+/* Tab 4: Cyber Threats & Space Hazards */
+.intel-hazard-alert {
+  padding: 8px 10px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.intel-hazard-alert.critical {
+  background: rgba(255, 69, 58, 0.12);
+  border: 1px solid rgba(255, 69, 58, 0.35);
+}
+
+.intel-hazard-alert.warning {
+  background: rgba(248, 180, 70, 0.1);
+  border: 1px solid rgba(248, 180, 70, 0.3);
+}
+
+.intel-hazard-alert.info {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+}
+
+/* Space Weather Scale Meters (G, R, S) */
+.intel-space-scales-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.intel-space-scale-card {
+  background: rgba(167, 215, 209, 0.05);
+  border: 1px solid rgba(167, 215, 209, 0.1);
+  border-radius: 4px;
+  padding: 6px;
+  text-align: center;
+}
+
+.intel-scale-level {
+  font-size: 18px;
+  font-weight: 800;
+  color: #f8b446;
+}
+
+.intel-scale-title {
+  font-size: 8.5px;
+  color: #8FA8A6;
+  text-transform: uppercase;
+}
+
+/* Interactive Cascade Simulator */
+.intel-cascade-box {
+  background: rgba(6, 12, 14, 0.9);
+  border: 1px solid rgba(255, 69, 58, 0.3);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.intel-cascade-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 8px;
+  border-left: 2px solid rgba(255, 69, 58, 0.4);
+}
+
+.intel-cascade-hop {
+  background: rgba(255, 69, 58, 0.08);
+  border: 1px solid rgba(255, 69, 58, 0.2);
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-size: 9.5px;
+}
+
+.intel-cascade-hop-title {
+  font-weight: 700;
+  color: #ff453a;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.intel-cascade-hop-items {
+  color: #DDE6E5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Subsea Cable & Repair Ships */
+.intel-cable-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: rgba(167, 215, 209, 0.03);
+  border: 1px solid rgba(167, 215, 209, 0.08);
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+.intel-vessel-badge {
+  font-size: 8.5px;
+  background: rgba(0, 240, 255, 0.15);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+/* Top HUD buttons active highlights */
+#top-center-actions #intel-top-trigger.active {
+  color: var(--accent-brass-highlight, #E8CE9D) !important;
+  border-color: var(--accent-brass, #DEC38C) !important;
+  background: var(--accent-brass-dim, rgba(222, 195, 140, 0.16)) !important;
+  box-shadow: 0 0 14px rgba(222, 195, 140, 0.35) !important;
+}
+
+#top-center-actions #resilience-top-trigger.active {
+  color: var(--signal-cyan-active, #B6E4DE) !important;
+  border-color: var(--signal-cyan-active, #B6E4DE) !important;
+  background: rgba(167, 215, 209, 0.16) !important;
+  box-shadow: 0 0 14px rgba(167, 215, 209, 0.35) !important;
+}
+
+/* Command Dock Trays for World Intel & Resilience */
+.dock-resilience-tray {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: rgba(8, 14, 16, 0.75);
+  border: 1px solid rgba(167, 215, 209, 0.18);
+  border-radius: 6px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0 10px;
+  height: 38px;
+  transition: all 140ms ease;
+  user-select: none;
+}
+
+.dock-resilience-tray:hover {
+  background: rgba(167, 215, 209, 0.08);
+  border-color: rgba(167, 215, 209, 0.35);
+}
+
+.dock-resilience-tray .dock-tray-toggle {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-secondary, #8FA8A6) !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  outline: none !important;
+  transition: color 140ms ease !important;
+  white-space: nowrap !important;
+}
+
+.dock-resilience-tray .dock-tray-toggle:hover {
+  color: var(--signal-cyan-active, #B6E4DE) !important;
+}
+
+.dock-resilience-tray .dock-tray-toggle.active {
+  color: var(--accent-brass-highlight, #E8CE9D) !important;
+}

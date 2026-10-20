@@ -1,0 +1,434 @@
+/* Research Analysis Directorate — Modular React Component System
+   Resilience Lens: Optical Glass, Muted Cyan Signals, Brass Accents, WCAG-AA Contrast */
+
+/* Component root tokens */
+:root {
+  --rad-focus-ring: 0 0 0 2px rgba(182, 228, 222, 0.8), 0 0 8px rgba(182, 228, 222, 0.4);
+}
+
+/* 1. Panel Container */
+.rad-panel {
+  display: flex;
+  flex-direction: column;
+  background: rgba(13, 21, 22, 0.95);
+  border: 1px solid var(--surface-border, rgba(167, 215, 209, 0.2));
+  border-radius: var(--panel-radius, 8px);
+  box-shadow: var(--panel-shadow, 0 16px 40px rgba(0, 0, 0, 0.7));
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  font-family: var(--font-mono, monospace);
+  color: var(--text-primary, #DDE6E5);
+  overflow: hidden;
+  user-select: none;
+}
+
+.rad-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(7, 11, 12, 0.96);
+  border-bottom: 1px solid var(--surface-border-subtle, rgba(167, 215, 209, 0.1));
+}
+
+.rad-panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rad-panel-icon {
+  font-size: 13px;
+  color: var(--signal-cyan-active, #B6E4DE);
+}
+
+.rad-panel-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--signal-cyan-active, #B6E4DE);
+  text-transform: uppercase;
+}
+
+.rad-panel-badge {
+  font-size: 8.5px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--signal-cyan-dim, rgba(156, 207, 202, 0.12));
+  border: 1px solid rgba(156, 207, 202, 0.3);
+  color: var(--signal-cyan-muted, #9CCFCA);
+  letter-spacing: 0.05em;
+}
+
+.rad-panel-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rad-panel-btn-icon {
+  background: rgba(167, 215, 209, 0.06);
+  border: 1px solid var(--surface-border-subtle, rgba(167, 215, 209, 0.12));
+  color: var(--text-secondary, #8FA8A6);
+  font-family: inherit;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast, 140ms) ease;
+}
+
+.rad-panel-btn-icon:hover {
+  background: rgba(167, 215, 209, 0.16);
+  color: var(--text-primary, #DDE6E5);
+  border-color: var(--surface-border-hover, rgba(167, 215, 209, 0.32));
+}
+
+.rad-panel-btn-icon:focus-visible {
+  outline: none;
+  box-shadow: var(--rad-focus-ring);
+}
+
+.rad-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 12px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167, 215, 209, 0.22) transparent;
+}
+
+.rad-panel-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.rad-panel-body::-webkit-scrollbar-thumb {
+  background: rgba(167, 215, 209, 0.22);
+  border-radius: 3px;
+}
+
+/* 2. TabbedPanel */
+.rad-tab-list {
+  display: flex;
+  border-bottom: 1px solid var(--surface-border-subtle, rgba(167, 215, 209, 0.12));
+  background: rgba(8, 13, 15, 0.98);
+  padding: 4px;
+  gap: 4px;
+}
+
+.rad-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text-secondary, #8FA8A6);
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 7px 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all var(--transition-fast, 140ms) ease;
+  user-select: none;
+}
+
+.rad-tab-btn:hover {
+  color: var(--signal-cyan-active, #B6E4DE);
+  background: rgba(167, 215, 209, 0.06);
+  border-color: rgba(167, 215, 209, 0.15);
+}
+
+.rad-tab-btn.active {
+  color: var(--accent-brass-highlight, #E8CE9D);
+  border-color: var(--accent-brass-border, rgba(222, 195, 140, 0.4));
+  background: var(--accent-brass-dim, rgba(222, 195, 140, 0.12));
+  box-shadow: 0 0 12px rgba(222, 195, 140, 0.18), inset 0 0 0 1px rgba(222, 195, 140, 0.2);
+}
+
+.rad-tab-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--rad-focus-ring);
+}
+
+.rad-tab-count {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 8px;
+  background: rgba(167, 215, 209, 0.14);
+  color: var(--signal-cyan-active, #B6E4DE);
+  border: 1px solid rgba(167, 215, 209, 0.25);
+  margin-left: 2px;
+}
+
+.rad-tab-btn.active .rad-tab-count {
+  background: rgba(222, 195, 140, 0.2);
+  color: var(--accent-brass-highlight, #E8CE9D);
+  border-color: rgba(222, 195, 140, 0.4);
+}
+
+/* 3. StatusBadge */
+.rad-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  line-height: 1.2;
+}
+
+.rad-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rad-badge-healthy {
+  background: rgba(158, 211, 191, 0.14);
+  border: 1px solid rgba(158, 211, 191, 0.4);
+  color: var(--state-healthy, #9ED3BF);
+}
+.rad-badge-healthy .rad-badge-dot { background: var(--state-healthy, #9ED3BF); }
+
+.rad-badge-warning {
+  background: rgba(230, 196, 132, 0.14);
+  border: 1px solid rgba(230, 196, 132, 0.4);
+  color: var(--state-warning, #E6C484);
+}
+.rad-badge-warning .rad-badge-dot { background: var(--state-warning, #E6C484); }
+
+.rad-badge-critical {
+  background: rgba(237, 176, 138, 0.16);
+  border: 1px solid rgba(237, 176, 138, 0.45);
+  color: var(--state-critical, #EDB08A);
+}
+.rad-badge-critical .rad-badge-dot { background: var(--state-critical, #EDB08A); }
+
+.rad-badge-neutral {
+  background: rgba(143, 168, 166, 0.12);
+  border: 1px solid rgba(143, 168, 166, 0.3);
+  color: var(--state-neutral, #8FA8A6);
+}
+.rad-badge-neutral .rad-badge-dot { background: var(--state-neutral, #8FA8A6); }
+
+.rad-badge-brass {
+  background: var(--accent-brass-dim, rgba(222, 195, 140, 0.14));
+  border: 1px solid var(--accent-brass-border, rgba(222, 195, 140, 0.45));
+  color: var(--accent-brass, #DEC38C);
+}
+.rad-badge-brass .rad-badge-dot { background: var(--accent-brass, #DEC38C); }
+
+/* 4. Metric Tile */
+.rad-metric {
+  background: rgba(167, 215, 209, 0.04);
+  border: 1px solid var(--surface-border-subtle, rgba(167, 215, 209, 0.1));
+  border-radius: 4px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rad-metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rad-metric-label {
+  font-size: 8.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary, #8FA8A6);
+  letter-spacing: 0.05em;
+}
+
+.rad-metric-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.rad-metric-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary, #DDE6E5);
+}
+
+.rad-metric-trend {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.rad-metric-trend-up { color: var(--state-healthy, #9ED3BF); }
+.rad-metric-trend-down { color: var(--state-critical, #EDB08A); }
+
+.rad-metric-sub {
+  font-size: 8px;
+  color: var(--text-dim, rgba(143, 168, 166, 0.52));
+}
+
+/* 5. SectionHeader */
+.rad-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--surface-border-subtle, rgba(167, 215, 209, 0.08));
+  margin-top: 4px;
+}
+
+.rad-section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rad-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--signal-cyan-active, #B6E4DE);
+  text-transform: uppercase;
+}
+
+.rad-section-sub {
+  font-size: 8.5px;
+  color: var(--text-secondary, #8FA8A6);
+}
+
+/* 6. DataRow */
+.rad-data-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  background: rgba(167, 215, 209, 0.03);
+  border: 1px solid var(--surface-border-subtle, rgba(167, 215, 209, 0.08));
+  border-radius: 4px;
+  font-size: 9.5px;
+  transition: all var(--transition-fast, 140ms) ease;
+}
+
+.rad-data-row:hover {
+  background: rgba(167, 215, 209, 0.08);
+  border-color: var(--surface-border, rgba(167, 215, 209, 0.22));
+}
+
+.rad-data-row:focus-visible {
+  outline: none;
+  box-shadow: var(--rad-focus-ring);
+}
+
+.rad-data-cell-key {
+  font-weight: 600;
+  color: var(--text-primary, #DDE6E5);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.rad-data-cell-desc {
+  font-size: 8.5px;
+  color: var(--text-secondary, #8FA8A6);
+  font-weight: 400;
+}
+
+.rad-data-cell-val {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 7. EmptyState */
+.rad-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 16px;
+  gap: 8px;
+  background: rgba(167, 215, 209, 0.02);
+  border: 1px dashed var(--surface-border-subtle, rgba(167, 215, 209, 0.14));
+  border-radius: 6px;
+}
+
+.rad-empty-icon {
+  font-size: 18px;
+  color: var(--text-secondary, #8FA8A6);
+  opacity: 0.7;
+}
+
+.rad-empty-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary, #DDE6E5);
+}
+
+.rad-empty-desc {
+  font-size: 9px;
+  color: var(--text-secondary, #8FA8A6);
+  max-width: 280px;
+  line-height: 1.4;
+}
+
+/* 8. LoadingState */
+.rad-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  gap: 8px;
+}
+
+.rad-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(167, 215, 209, 0.15);
+  border-top-color: var(--signal-cyan-active, #B6E4DE);
+  border-radius: 50%;
+  animation: rad-spin 0.8s linear infinite;
+}
+
+.rad-loading-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--signal-cyan-muted, #9CCFCA);
+  text-transform: uppercase;
+}
+
+@keyframes rad-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .rad-loading-spinner {
+    animation: none;
+    border-top-color: transparent;
+    background: var(--signal-cyan-active, #B6E4DE);
+    opacity: 0.6;
+  }
+  .rad-panel,
+  .rad-tab-btn,
+  .rad-data-row,
+  .rad-panel-btn-icon {
+    transition: none !important;
+  }
+}

@@ -62,6 +62,7 @@
     "@jtarrio/webrtlsdr": "^3.0.6",
     "@mapbox/vector-tile": "^3.0.0",
     "@meri-imperiumi/eccodes-wasm": "^2.48.2",
+    "@vitejs/plugin-react": "^4.7.0",
     "cesium": "^1.124.0",
     "egm96-universal": "^1.1.1",
     "h3-js": "^4.5.0",
@@ -69,6 +70,8 @@
     "mapillary-js": "^4.1.2",
     "mgrs": "^2.1.0",
     "pbf": "^5.1.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "satellite.js": "^6.0.2"
   },
   "devDependencies": {

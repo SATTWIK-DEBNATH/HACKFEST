@@ -159,11 +159,15 @@
 }
 
 /* 5b. Tactical Resilience HUD Pill in Top Action Bar */
+#top-center-actions .resilience-hud-pill,
 .resilience-hud-pill {
   display: inline-flex !important;
   align-items: center !important;
   gap: 7px !important;
-  padding: 4px 12px 4px 10px !important;
+  width: auto !important;
+  min-width: max-content !important;
+  height: 36px !important;
+  padding: 0 14px !important;
   background: rgba(13, 21, 22, 0.92) !important;
   border: 1px solid var(--surface-border) !important;
   border-radius: 20px !important;
@@ -175,6 +179,7 @@
   cursor: pointer !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(167, 215, 209, 0.1) !important;
   transition: all var(--transition-fast) ease !important;
+  white-space: nowrap !important;
 }
 
 .resilience-hud-pill:hover {
